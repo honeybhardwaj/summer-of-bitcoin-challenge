@@ -47,18 +47,23 @@ def write_transactions():
 	""" writes the valid transactions in transactions.txt"""
 	mempool=["",]
 	file=open("Block.txt","a")
-	
+	totalWeight=0
 	for i in lst:
-		if(int(i.get_weight())<4000000):
-			flag=[]		
-			for j in i.get_parents():				
-				if(j in mempool):             # checks for all parent and add them in a flag list
-					flag.append(True)
-				else:
-					flag.append(False)
-			if(checkflag(flag)):
-				mempool.append(i.get_taxid())    # if all condition are met write them in txt file
+		flag=[]		
+		for j in i.get_parents():				
+			if(j in mempool ):             # checks for all parent and add them in a flag list
+				flag.append(True)
+			else:
+				flag.append(False)
+		
+		if(checkflag(flag)):
+			mempool.append(i.get_taxid())
+			# Calculates the total weight and write if under threshold
+			while(totalWeight<4000000):
 				file.write(i.get_taxid()+'\n')
+				totalWeight+=int(i.get_weight());
+				break;
+	
 	file.close()
 
 
