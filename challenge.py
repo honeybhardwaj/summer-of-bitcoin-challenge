@@ -41,24 +41,23 @@ def checkflag(flag):
 def write_transactions():
 	""" writes the valid transactions in transactions.txt"""
 	mempool=["",]
-	file=open("Transactions.txt","a")
-	flag=[]
+	file=open("Block.txt","a")
+	
 	for i in lst:
-		if(i.get_weight()<4000000):		
+		if(int(i.get_weight())<4000000):
+			flag=[]		
 			for j in i.get_parents():				
 				if(j in mempool):
 					flag.append(True)
 				else:
 					flag.append(False)
-		if(checkflag(flag)):
-			mempool.append(i.get_taxid())
-			file.write(i.get_taxid())
-
-
+			if(checkflag(flag)):
+				mempool.append(i.get_taxid())
+				file.write(i.get_taxid()+'\n')
 	file.close()
 
 
 
 parse_mempool_csv()
-
+write_transactions()
 
