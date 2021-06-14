@@ -32,17 +32,33 @@ def parse_mempool_csv():
 				lst.append(MempoolTransaction(row[0],row[1],row[2],row[3].strip().split(';')))
 		
 	
+def checkflag(flag):
+	element = True
+	for i in flag:
+		element= element & i
+	return element
+
 def write_transactions():
 	""" writes the valid transactions in transactions.txt"""
-	mempool=[]
+	mempool=["",]
 	file=open("Transactions.txt","a")
-	#for i in lst:
-	#	if(i.)
+	flag=[]
+	for i in lst:
+		if(i.get_weight()<4000000):		
+			for j in i.get_parents():				
+				if(j in mempool):
+					flag.append(True)
+				else:
+					flag.append(False)
+		if(checkflag(flag)):
+			mempool.append(i.get_taxid())
+			file.write(i.get_taxid())
+
 
 	file.close()
 
 
 
 parse_mempool_csv()
-for i in lst:
-	print(i.get_parents())
+
+
