@@ -9,11 +9,14 @@ class MempoolTransaction:
 		self.weight=weight
 		self.parents=parents
 
-	def get_elements(self):
-		print(self.txid)
-		print(self.fee)
-		print(self.weight)
-		print(self.parents)
+	def get_taxid(self):
+		return self.txid
+	def get_weight(self):
+		return self.weight
+	def get_fee(self):
+		return self.fee
+	def get_parents(self):
+		return self.parents
 
 lst=[]
 def parse_mempool_csv():
@@ -26,12 +29,20 @@ def parse_mempool_csv():
 				r=r+1
 			else:
 				r=r+1
-				lst.append(MempoolTransaction(row[0],row[1],row[2],row[3]))
+				lst.append(MempoolTransaction(row[0],row[1],row[2],row[3].strip().split(';')))
 		
 	
 def write_transactions():
-	""" writes the b=valid transactions in transactions.txt"""
+	""" writes the valid transactions in transactions.txt"""
+	mempool=[]
+	file=open("Transactions.txt","a")
+	#for i in lst:
+	#	if(i.)
+
+	file.close()
 
 
 
 parse_mempool_csv()
+for i in lst:
+	print(i.get_parents())
