@@ -9,6 +9,7 @@ class MempoolTransaction:
 		self.weight=weight
 		self.parents=parents
 
+	# getter functions
 	def get_taxid(self):
 		return self.txid
 	def get_weight(self):
@@ -18,7 +19,10 @@ class MempoolTransaction:
 	def get_parents(self):
 		return self.parents
 
+# List of  Mempool Transactions
 lst=[]
+
+
 def parse_mempool_csv():
 	"""Parse the CSV file and return a list of MempoolTransactions."""
 	with open('mempool.csv') as f:
@@ -33,6 +37,7 @@ def parse_mempool_csv():
 		
 	
 def checkflag(flag):
+	""" checker function for checking whether all parents are present"""
 	element = True
 	for i in flag:
 		element= element & i
@@ -47,17 +52,17 @@ def write_transactions():
 		if(int(i.get_weight())<4000000):
 			flag=[]		
 			for j in i.get_parents():				
-				if(j in mempool):
+				if(j in mempool):             # checks for all parent and add them in a flag list
 					flag.append(True)
 				else:
 					flag.append(False)
 			if(checkflag(flag)):
-				mempool.append(i.get_taxid())
+				mempool.append(i.get_taxid())    # if all condition are met write them in txt file
 				file.write(i.get_taxid()+'\n')
 	file.close()
 
 
-
+# driver code 
 parse_mempool_csv()
 write_transactions()
 
