@@ -1,4 +1,4 @@
-# summer-of-bitcoin-challenge
+# Summer-Of-Bitcoin-Challenge
 
 This is the challenge for Summer of blockchain. the descreption is given in sb_README.pdf
 
